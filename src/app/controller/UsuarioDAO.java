@@ -7,5 +7,7 @@ public interface UsuarioDAO {
     public abstract Usuario validarUsuario(String login, String password);
     public abstract void insertaUsuario(Usuario usuario);
     public abstract void construirTabla (DefaultTableModel tabla);
-    
+    public abstract Usuario consultarUsr (int id);
+    public abstract void eliminarUsuario (int id);
+    public abstract Usuario modificarUsuario (int id, Usuario usuario);
 }

@@ -1,9 +1,10 @@
 package app.entity;
 
-public class Empleado {
+public class Empleado extends Persona{
     private String rfc, curp, tipo;
 
-    public Empleado(String rfc, String curp, String tipo) {
+    public Empleado(String rfc, String curp, String tipo, String nombre, String direccion, int edad, int telefono, char sexo) {
+        super(nombre, direccion, edad, telefono, sexo);
         this.rfc = rfc;
         this.curp = curp;
         this.tipo = tipo;

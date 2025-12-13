@@ -603,7 +603,7 @@
                   <StringArray count="3">
                     <StringItem index="0" value="Debito"/>
                     <StringItem index="1" value="Credito"/>
-                    <StringItem index="2" value=" "/>
+                    <StringItem index="2" value="Nomina"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -646,14 +646,13 @@
             <Component class="javax.swing.JComboBox" name="comboBoxBanco">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="7">
+                  <StringArray count="6">
                     <StringItem index="0" value="HSBC"/>
                     <StringItem index="1" value="BBVA"/>
                     <StringItem index="2" value="Banorte"/>
                     <StringItem index="3" value="Santander"/>
                     <StringItem index="4" value="NU"/>
                     <StringItem index="5" value="Banamex"/>
-                    <StringItem index="6" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>

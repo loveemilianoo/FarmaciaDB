@@ -1,17 +1,14 @@
 package app.entity;
 
-import java.util.Date;
-
 public class Cliente extends Persona{
-    private String correo, estatus;
-    private Date fecha_creacion;
+    private String correo, estatus, membresia;
     private Cuenta cuenta;
 
-    public Cliente(String correo, String estatus, Date fecha_creacion, Cuenta cuenta, String nombre, String direccion, int edad, int telefono, char sexo) {
+    public Cliente(String correo, String estatus, String membresia, Cuenta cuenta, String nombre, String direccion, int edad, int telefono, char sexo) {
         super(nombre, direccion, edad, telefono, sexo);
         this.correo = correo;
         this.estatus = estatus;
-        this.fecha_creacion = fecha_creacion;
+        this.membresia = membresia;
         this.cuenta = cuenta;
     }
 
@@ -39,11 +36,13 @@ public class Cliente extends Persona{
         this.estatus = estatus;
     }
 
-    public Date getFecha_creacion() {
-        return fecha_creacion;
+    public String getMembresia() {
+        return membresia;
     }
 
-    public void setFecha_creacion(Date fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setMembresia(String membresia) {
+        this.membresia = membresia;
     }
+
+    
 }

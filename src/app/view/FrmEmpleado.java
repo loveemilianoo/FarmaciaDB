@@ -256,7 +256,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         jLabel13.setText("Tipo");
 
-        comboBoxTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Debito", "Credito", " " }));
+        comboBoxTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Debito", "Credito", "Nomina" }));
         comboBoxTipoCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTipoCuentaActionPerformed(evt);
@@ -271,7 +271,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         jLabel12.setText("Banco");
 
-        comboBoxBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HSBC", "BBVA", "Banorte", "Santander", "NU", "Banamex", " " }));
+        comboBoxBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HSBC", "BBVA", "Banorte", "Santander", "NU", "Banamex" }));
         comboBoxBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxBancoActionPerformed(evt);

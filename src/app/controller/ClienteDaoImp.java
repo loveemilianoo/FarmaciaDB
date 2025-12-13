@@ -8,7 +8,7 @@ import java.sql.*;
 public class ClienteDaoImp implements ClienteDAO {
 
     @Override
-    public void insertarEmpleado(Cliente cliente) {
+    public void insertarCliente(Cliente cliente) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -46,11 +46,11 @@ public class ClienteDaoImp implements ClienteDAO {
                 idCuenta = rs.getInt(1);
             }
             //Insertar en Empleados
-            String qInsertaEmp = "INSERT INTO clientes (correo, estatus, fecha_creacion, id_persona, id_cuenta) VALUES (?, ?, ?, ?, ?)";
-            ps = conn.prepareStatement(qInsertaEmp);
+            String qInsertaCl = "INSERT INTO clientes (correo, estatus_cliente, membresia, id_persona, id_cuenta) VALUES (?, ?, ?, ?, ?)";
+            ps = conn.prepareStatement(qInsertaCl);
             ps.setString(1, cliente.getCorreo());
             ps.setString(2, cliente.getEstatus());
-            ps.setDate(3, new java.sql.Date(cliente.getFecha_creacion().getTime()));
+            ps.setString(3, cliente.getMembresia());
             ps.setInt(4, idPersona);
             ps.setInt(5, idCuenta);
             ps.executeUpdate();
@@ -76,7 +76,7 @@ public class ClienteDaoImp implements ClienteDAO {
         try {
             conn = Conexion.obtenerConexion();
             
-            String query = "SELECT cl.id_cliente, p.nombre, p.direccion, p.edad, p.telefono, p.sexo, cl.correo, cl.estatus_cliente, cl.fecha_creacion, "
+            String query = "SELECT cl.id_cliente, p.nombre, p.direccion, p.edad, p.telefono, p.sexo, cl.correo, cl.estatus_cliente, cl.membresia, "
                     + "c.tipo_cuenta, c.clabe, c.banco, c.estatus, c.saldo "
                     + "FROM clientes cl "
                     + "INNER JOIN personas p ON cl.id_persona = p.id_persona "
@@ -107,7 +107,7 @@ public class ClienteDaoImp implements ClienteDAO {
     }
     
     @Override
-    public Cliente consultarEmpleado(int id) {
+    public Cliente consultarCliente(int id) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -115,7 +115,7 @@ public class ClienteDaoImp implements ClienteDAO {
         
         try {
             conn = Conexion.obtenerConexion();
-            String query = "SELECT cl.correo, cl.estatus_cliente, cl.fecha_creacion, p.nombre, p.direccion, p.edad, p.telefono, p.sexo, "
+            String query = "SELECT cl.correo, cl.estatus_cliente, cl.membresia, p.nombre, p.direccion, p.edad, p.telefono, p.sexo, "
                     + "c.tipo_cuenta, c.clabe, c.banco, c.estatus, c.saldo "
                     + "FROM clientes cl "
                     + "INNER JOIN personas p ON cl.id_persona = p.id_persona "
@@ -140,7 +140,7 @@ public class ClienteDaoImp implements ClienteDAO {
                 cliente = new Cliente (
                         rs.getString("correo"), 
                         rs.getString("estatus_cliente"), 
-                        rs.getDate("fecha_creacion"), 
+                        rs.getString("membresia"), 
                         cuenta, 
                         rs.getString("nombre"), 
                         rs.getString("direccion"), 
@@ -163,7 +163,7 @@ public class ClienteDaoImp implements ClienteDAO {
     }
     
     @Override
-    public void eliminarEmpleado(int id) {
+    public void eliminarCliente(int id) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -212,7 +212,7 @@ public class ClienteDaoImp implements ClienteDAO {
     }
     
     @Override
-    public Cliente modificarEmpleado(int id, Cliente cliente) {
+    public Cliente modificarCliente(int id, Cliente cliente) {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -243,11 +243,11 @@ public class ClienteDaoImp implements ClienteDAO {
             ps.executeUpdate();
             
             // 3. Actualizar Empleado
-            String qUpdEmp = "UPDATE clientes SET correo = ?, estatus_cliente = ?, fecha_creacion = ? WHERE id_cliente = ?";
-            ps = conn.prepareStatement(qUpdEmp);
+            String qUpCl = "UPDATE clientes SET correo = ?, estatus_cliente = ?, membresia = ? WHERE id_cliente = ?";
+            ps = conn.prepareStatement(qUpCl);
             ps.setString(1, cliente.getCorreo());
             ps.setString(2, cliente.getEstatus());
-            ps.setDate(3, new java.sql.Date(cliente.getFecha_creacion().getTime()));
+            ps.setString(3, cliente.getMembresia());
             ps.setInt(4, id);
             ps.executeUpdate();
             

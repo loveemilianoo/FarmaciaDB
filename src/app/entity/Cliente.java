@@ -5,12 +5,22 @@ import java.util.Date;
 public class Cliente extends Persona{
     private String correo, estatus;
     private Date fecha_creacion;
+    private Cuenta cuenta;
 
-    public Cliente(String correo, String estatus, Date fecha_creacion, String nombre, String direccion, int edad, int telefono, char sexo) {
+    public Cliente(String correo, String estatus, Date fecha_creacion, Cuenta cuenta, String nombre, String direccion, int edad, int telefono, char sexo) {
         super(nombre, direccion, edad, telefono, sexo);
         this.correo = correo;
         this.estatus = estatus;
         this.fecha_creacion = fecha_creacion;
+        this.cuenta = cuenta;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
     public String getCorreo() {

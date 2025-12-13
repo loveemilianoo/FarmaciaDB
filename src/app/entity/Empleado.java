@@ -2,12 +2,14 @@ package app.entity;
 
 public class Empleado extends Persona{
     private String rfc, curp, tipo;
+    private Cuenta cuenta;
 
-    public Empleado(String rfc, String curp, String tipo, String nombre, String direccion, int edad, int telefono, char sexo) {
+    public Empleado(String rfc, String curp, String tipo, Cuenta cuenta, String nombre, String direccion, int edad, int telefono, char sexo) {
         super(nombre, direccion, edad, telefono, sexo);
         this.rfc = rfc;
         this.curp = curp;
         this.tipo = tipo;
+        this.cuenta = cuenta;
     }
 
     public String getRfc() {
@@ -33,4 +35,14 @@ public class Empleado extends Persona{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    
 }

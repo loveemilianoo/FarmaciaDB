@@ -168,7 +168,7 @@ public class frmMain extends javax.swing.JFrame {
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         this.setVisible(false);
         
-        FrmEmpleados frmEmpleado = new FrmEmpleados();
+        FrmEmpleado frmEmpleado = new FrmEmpleado();
         frmEmpleado.setVisible(true);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 

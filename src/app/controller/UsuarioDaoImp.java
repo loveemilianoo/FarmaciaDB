@@ -106,7 +106,6 @@ public class UsuarioDaoImp implements UsuarioDAO {
                 }
                 tabla.addRow(fila);
             }
-            System.out.println("Tabla bien mostrada");
         } catch (SQLException e){
             System.out.println("Error en la base de datos: "+e.toString());
         } finally {

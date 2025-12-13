@@ -223,6 +223,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaEmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaEmpleados);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta"));
@@ -293,12 +298,13 @@ public class FrmEmpleado extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
-                        .addComponent(comboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -317,7 +323,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(959, 959, 959)
                         .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -363,11 +369,13 @@ public class FrmEmpleado extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(172, 172, 172)
                 .addComponent(jLabel9)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,9 +421,9 @@ public class FrmEmpleado extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -475,7 +483,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         Empleado empleado = new Empleado(txtRfc.getText(), txtCurp.getText(), seleccionTipoEmpleado, cuenta, 
             txtNombre.getText(), txtDireccion.getText(), edad, telefono, sexo);
 
-        dao = null;
+        dao.insertarEmpleado(empleado);
         limpiarCampos();
         tabla();
 
@@ -505,6 +513,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         String seleccionBanco = (String) comboBoxBanco.getSelectedItem();
         String seleccionStatus = (String) comboBoxEstatus.getSelectedItem();
 
+        int id = Integer.parseInt(txtIdEmpleado.getText());
         int edad = Integer.parseInt(txtEdad.getText());
         int telefono = Integer.parseInt(txtTelefono.getText());
         double saldo = Double.parseDouble(txtSaldo.getText());
@@ -513,7 +522,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         Empleado empleado = new Empleado(txtRfc.getText(), txtCurp.getText(), seleccionTipoEmpleado, cuenta, 
             txtNombre.getText(), txtDireccion.getText(), edad, telefono, sexo);
 
-        dao= null;
+        dao.modificarEmpleado(id, empleado);
         limpiarCampos();
         tabla();
 
@@ -531,6 +540,31 @@ public class FrmEmpleado extends javax.swing.JFrame {
     private void comboBoxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxTipoActionPerformed
+
+    private void tablaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEmpleadosMouseClicked
+        int fila = tablaEmpleados.getSelectedRow();
+        int id = Integer.parseInt(tablaEmpleados.getValueAt(fila, 0).toString());
+        
+        Empleado empleado = dao.consultarEmpleado(id);
+        
+        if (empleado.getSexo() == 'M'){
+            rbtnMasc.setSelected(true);
+        } else {
+            rbtnFem.setSelected(true);
+        }
+        
+        txtIdEmpleado.setText(String.valueOf(id));
+        txtNombre.setText(empleado.getNombre());
+        txtEdad.setText(String.valueOf(empleado.getEdad()));
+        txtSaldo.setText(String.valueOf(empleado.getCuenta().getSaldo()));
+        txtClabe.setText(empleado.getCuenta().getClabe());
+        txtDireccion.setText(empleado.getDireccion());
+        txtTelefono.setText(String.valueOf(empleado.getTelefono()));
+        comboBoxTipo.setSelectedItem(empleado.getTipo());
+        comboBoxTipoCuenta.setSelectedItem(empleado.getCuenta().getTipo());
+        comboBoxBanco.setSelectedItem(empleado.getCuenta().getBanco());
+        comboBoxEstatus.setSelectedItem(empleado.getCuenta().getEstatus());
+    }//GEN-LAST:event_tablaEmpleadosMouseClicked
 
     /**
      * @param args the command line arguments

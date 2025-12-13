@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package app.view;
 
 import app.controller.EmpleadoDaoImp;
@@ -9,10 +5,6 @@ import app.entity.*;
 import javax.swing.ButtonGroup;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author root
- */
 public class FrmEmpleado extends javax.swing.JFrame {
     
     EmpleadoDaoImp dao = new EmpleadoDaoImp();
@@ -32,7 +24,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         DefaultTableModel tabla = (DefaultTableModel) tablaEmpleados.getModel();
         tabla.setRowCount(0);
         
-        int anchos [] = {10,60,40,70,100,50,50,30};
+        int anchos [] = {10,60,40,70,100,50,50,30,50,50};
         
         for (int i =0; i< tablaEmpleados.getColumnCount(); i++){
             tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(anchos[i]);
@@ -49,6 +41,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
         txtDireccion.setText("");
         txtTelefono.setText("");
         txtIdEmpleado.setText("");
+        txtSaldo.setText("");
+        txtClabe.setText("");
     }
     
     @SuppressWarnings("unchecked")
@@ -214,21 +208,42 @@ public class FrmEmpleado extends javax.swing.JFrame {
 
         tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Edad", "Sexo", "Telefono", "Direccion", "Crup", "RFC", "Tipo", "Cuenta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaEmpleados.getTableHeader().setReorderingAllowed(false);
         tablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaEmpleadosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaEmpleados);
+        if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
+            tablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(3).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(4).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(5).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(6).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(7).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(8).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(9).setResizable(false);
+        }
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta"));
 
@@ -431,9 +446,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addGap(0, 462, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,17 +501,17 @@ public class FrmEmpleado extends javax.swing.JFrame {
         limpiarCampos();
         tabla();
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Usuario Insertado!!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Empleado Insertado!!");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int id = Integer.parseInt(txtIdEmpleado.getText());
 
-        dao = null;
+        dao.eliminarEmpleado(id);
         limpiarCampos();
         tabla();
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Usuario eliminado!!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Empleado eliminado!!");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -557,6 +571,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
         txtNombre.setText(empleado.getNombre());
         txtEdad.setText(String.valueOf(empleado.getEdad()));
         txtSaldo.setText(String.valueOf(empleado.getCuenta().getSaldo()));
+        txtCurp.setText(empleado.getCurp());
+        txtRfc.setText(empleado.getRfc());
         txtClabe.setText(empleado.getCuenta().getClabe());
         txtDireccion.setText(empleado.getDireccion());
         txtTelefono.setText(String.valueOf(empleado.getTelefono()));
@@ -566,9 +582,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
         comboBoxEstatus.setSelectedItem(empleado.getCuenta().getEstatus());
     }//GEN-LAST:event_tablaEmpleadosMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

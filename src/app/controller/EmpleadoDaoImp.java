@@ -32,24 +32,21 @@ public class EmpleadoDaoImp implements EmpleadoDAO{
                 idPersona = rs.getInt(1);
             }
             //Crear cuenta si se requiere
+            String qCuenta = "INSERT INTO cuentas (saldo, tipo_cuenta, banco, estatus, clabe) VALUES (?, ?, ?, ?, ?)";
+            ps = conn.prepareStatement(qCuenta, Statement.RETURN_GENERATED_KEYS);
+            ps.setDouble(1, empleado.getCuenta().getSaldo());
+            ps.setString(2, empleado.getCuenta().getTipo());
+            ps.setString(3, empleado.getCuenta().getBanco());
+            ps.setString(4, empleado.getCuenta().getEstatus());
+            ps.setString(5, empleado.getCuenta().getClabe());
+            ps.executeUpdate();
             int idCuenta = 0;
-            if (empleado.getCuenta() != null) {
-                String qCuenta = "INSERT INTO cuentas (saldo, tipo_cuenta, banco, estatus, clabe) VALUES (?, ?, ?, ?, ?)";
-                ps = conn.prepareStatement(qCuenta, Statement.RETURN_GENERATED_KEYS);
-                ps.setDouble(1, empleado.getCuenta().getSaldo());
-                ps.setString(2, empleado.getCuenta().getTipo());
-                ps.setString(3, empleado.getCuenta().getBanco());
-                ps.setString(4, empleado.getCuenta().getEstatus());
-                ps.setString(5, empleado.getCuenta().getClabe());
-                ps.executeUpdate();
-                
-                rs = ps.getGeneratedKeys();
-                while (rs.next()) {
-                    idCuenta = rs.getInt(1);
-                }
+            rs = ps.getGeneratedKeys();
+            while (rs.next()) {
+                idCuenta = rs.getInt(1);
             }
             //Insertar en Empleados
-            String qInsertaEmp = "INSERT INTO empleados (rfc, curp, tipo_cuenta, id_persona, id_cuenta) VALUES (?, ?, ?, ?, ?)";
+            String qInsertaEmp = "INSERT INTO empleados (rfc, curp, tipo, id_persona, id_cuenta) VALUES (?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(qInsertaEmp);
             ps.setString(1, empleado.getRfc());
             ps.setString(2, empleado.getCurp());
@@ -187,7 +184,7 @@ public class EmpleadoDaoImp implements EmpleadoDAO{
                 idCuenta = rs.getInt("id_cuenta");
             }
 
-            String qElimEmp = "DELETE FROM empleados WHERE id_empleado = ?";
+            String qElimEmp = "DELETE FROM empleados WHERE id_empleados = ?";
             ps = conn.prepareStatement(qElimEmp);
             ps.setString(1, String.valueOf(id));
             ps.executeUpdate();
@@ -256,14 +253,14 @@ public class EmpleadoDaoImp implements EmpleadoDAO{
             
             // 4. Actualizar cuenta
             String qUpCuen = "UPDATE cuentas SET saldo=?, tipo_cuenta=?, clabe=?, banco=?, estatus=? WHERE id_cuenta=?";
-            ps = conn.prepareStatement(qUpdEmp);
+            ps = conn.prepareStatement(qUpCuen);
             ps.setDouble(1, empleado.getCuenta().getSaldo());
             ps.setString(2, empleado.getCuenta().getTipo());
             ps.setString(3, empleado.getCuenta().getClabe());
             ps.setString(4, empleado.getCuenta().getBanco());
-            ps.setInt(5, cuentaId);
+            ps.setString(5, empleado.getCuenta().getEstatus());
+            ps.setInt(6, cuentaId);
             ps.executeUpdate();
-            
         } catch (SQLException e){
             System.out.println("Error en la base de datos: "+e.toString());
             e.printStackTrace();

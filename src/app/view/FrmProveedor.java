@@ -304,6 +304,11 @@ public class FrmProveedor extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaProMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPro);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -383,12 +388,13 @@ public class FrmProveedor extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addComponent(txtWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel6)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel9)
-                                        .addComponent(spPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel10)
-                                        .addComponent(spSegundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel6)
+                                            .addComponent(spPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel10)
+                                            .addComponent(spSegundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel7)
@@ -500,6 +506,27 @@ public class FrmProveedor extends javax.swing.JFrame {
 
         javax.swing.JOptionPane.showMessageDialog(this, "Proveedor Insertado!!");
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tablaProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProMouseClicked
+        int fila = tablaPro.getSelectedRow();
+        int id = Integer.parseInt(tablaPro.getValueAt(fila, 0).toString());
+        
+        Proveedor proveedor = dao.consultarProveedor(id);
+        
+        txtIdPro.setText(String.valueOf(id));
+        txtNombre.setText(proveedor.getNombre());
+        txtSaldo.setText(String.valueOf(proveedor.getCuenta().getSaldo()));
+        txtCorreo.setText(proveedor.getCorreo());
+        txtClabe.setText(proveedor.getCuenta().getClabe());
+        txtDireccion.setText(proveedor.getDireccion());
+        txtTelefono.setText(String.valueOf(proveedor.getTelefono()));
+        comboTipoPro.setSelectedItem(proveedor.getTipo());
+        comboBoxTipoCuenta.setSelectedItem(proveedor.getCuenta().getTipo());
+        comboBoxBanco.setSelectedItem(proveedor.getCuenta().getBanco());
+        comboBoxEstatusCuenta.setSelectedItem(proveedor.getCuenta().getEstatus());
+        
+        obtenerHorario();
+    }//GEN-LAST:event_tablaProMouseClicked
 
     /**
      * @param args the command line arguments

@@ -7,11 +7,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class FrmProducto extends javax.swing.JFrame {
     
-    private ProductoDaoImp dao = new ProductoDaoImp();
+    ProductoDaoImp dao = new ProductoDaoImp();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmProducto.class.getName());
 
     public FrmProducto() {
+        initComponents();
         buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(rbtnPublico);
         buttonGroup1.add(rbtnReceta);
@@ -128,7 +129,7 @@ public class FrmProducto extends javax.swing.JFrame {
             }
         });
 
-        comboPresentacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPresentacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comprimido", "Capsula", "Solucion", "Suspension", "Inyectable", "Pomada", "Crema" }));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel5.setText("Control");
@@ -153,7 +154,7 @@ public class FrmProducto extends javax.swing.JFrame {
             }
         });
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicina", "Cuidado Personal", "Comida" }));
 
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel9.setText("Proveedor");
@@ -225,15 +226,20 @@ public class FrmProducto extends javax.swing.JFrame {
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
             }
         ));
+        tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaProductos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -242,8 +248,10 @@ public class FrmProducto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -274,26 +282,26 @@ public class FrmProducto extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel7)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtPrecio))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rbtnReceta)))
+                                    .addComponent(txtPrecio)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
                                 .addComponent(spStock, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbtnReceta))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
                                 .addComponent(rbtnPublico)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(391, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(385, 385, 385))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,6 +445,31 @@ public class FrmProducto extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
+        int fila = tablaProductos.getSelectedRow();
+        int id = Integer.parseInt(tablaProductos.getValueAt(fila, 0).toString());
+        
+        Producto producto = dao.consultarProducto(id);
+        
+        txtIdProductos.setText(String.valueOf(id));
+        txtGenerico.setText(producto.getNombreGenerico());
+        txtComercial.setText(producto.getNombreComercial());
+        txtPrecio.setText(String.valueOf(producto.getPrecio()));
+        txtFormula.setText(producto.getFormula());
+        
+        comboPresentacion.setSelectedItem(producto.getPresentacion());
+        comboTipo.setSelectedItem(producto.getTipo());
+        spStock.setValue(producto.getStock());
+        
+        comboProveedor.setSelectedItem(producto.getId_proveedor());
+        
+        if ("Con receta".equals(producto.getControl())){
+            rbtnReceta.setSelected(true);
+        } else if ("Venta publica".equals(producto.getControl())){
+            rbtnPublico.setSelected(true);
+        }
+    }//GEN-LAST:event_tablaProductosMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

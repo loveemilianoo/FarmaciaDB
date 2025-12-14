@@ -3,8 +3,9 @@ package app.entity;
 public class Proveedor {
     private String nombre, correo, direccion, tipo, horario, sitoWeb, personaContacto;
     private int telefono;
+    private Cuenta cuenta;
 
-    public Proveedor(String nombre, String correo, String direccion, String tipo, String horario, String sitoWeb, String personaContacto, int telefono) {
+    public Proveedor(String nombre, String correo, String direccion, String tipo, String horario, String sitoWeb, String personaContacto, int telefono, Cuenta cuenta) {
         this.nombre = nombre;
         this.correo = correo;
         this.direccion = direccion;
@@ -13,6 +14,7 @@ public class Proveedor {
         this.sitoWeb = sitoWeb;
         this.personaContacto = personaContacto;
         this.telefono = telefono;
+        this.cuenta = cuenta;
     }
 
     public String getNombre() {
@@ -77,6 +79,14 @@ public class Proveedor {
 
     public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
     
     

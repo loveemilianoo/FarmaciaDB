@@ -203,5 +203,18 @@ public class ProductoDaoImp implements ProductoDAO {
                     proveedores.append(",");
                 }
                 proveedores.append(rs.getInt("id_proveedor")).append(":").append(rs.getString("nombre"));
-    
+            } 
+        } catch (SQLException e){
+            System.out.println("Error en la base de datos: "+e.toString());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e){
+                System.out.println("Error al cerrar recursos: "+e.toString());
+            }
+        }
+        return proveedores.toString();
+    }
 }

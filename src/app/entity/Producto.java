@@ -1,7 +1,7 @@
 package app.entity;
 
 public class Producto {
-    private String nombreComercial, nombreGenerico, presentacion, formula, tipo, control;
+    private String nombreComercial, nombreGenerico, presentacion, formula, tipo, control, proveedor;
     private double precio;
     private int stock, id_proveedor;
 

@@ -1,11 +1,11 @@
 package app.entity;
 
 public class Producto {
-    private String nombreComercial, nombreGenerico, presentacion, formula, tipo, control;
+    private String nombreComercial, nombreGenerico, presentacion, formula, tipo, control, proveedor;
     private double precio;
-    private boolean receta;
+    private int stock;
 
-    public Producto(String nombreComercial, String nombreGenerico, String presentacion, String formula, String tipo, String control, double precio, boolean receta) {
+    public Producto(String nombreComercial, String nombreGenerico, String presentacion, String formula, String tipo, String control, double precio, int stock, String proveedor) {
         this.nombreComercial = nombreComercial;
         this.nombreGenerico = nombreGenerico;
         this.presentacion = presentacion;
@@ -13,7 +13,8 @@ public class Producto {
         this.tipo = tipo;
         this.control = control;
         this.precio = precio;
-        this.receta = receta;
+        this.stock = stock;
+        this.proveedor = proveedor;
     }
 
     public String getNombreComercial() {
@@ -72,13 +73,21 @@ public class Producto {
         this.precio = precio;
     }
 
-    public boolean isReceta() {
-        return receta;
+    public int getStock() {
+        return stock;
     }
 
-    public void setReceta(boolean receta) {
-        this.receta = receta;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+    
     
 }

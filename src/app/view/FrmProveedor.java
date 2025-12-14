@@ -198,7 +198,7 @@ public class FrmProveedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtIdPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtIdPro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,21 +295,41 @@ public class FrmProveedor extends javax.swing.JFrame {
 
         tablaPro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Correo", "Direccion", "Telefono", "Contacto", "Web", "Horario", "Tipo", "Cuenta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaProMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaPro);
+        if (tablaPro.getColumnModel().getColumnCount() > 0) {
+            tablaPro.getColumnModel().getColumn(0).setResizable(false);
+            tablaPro.getColumnModel().getColumn(1).setResizable(false);
+            tablaPro.getColumnModel().getColumn(2).setResizable(false);
+            tablaPro.getColumnModel().getColumn(3).setResizable(false);
+            tablaPro.getColumnModel().getColumn(4).setResizable(false);
+            tablaPro.getColumnModel().getColumn(5).setResizable(false);
+            tablaPro.getColumnModel().getColumn(6).setResizable(false);
+            tablaPro.getColumnModel().getColumn(7).setResizable(false);
+            tablaPro.getColumnModel().getColumn(8).setResizable(false);
+            tablaPro.getColumnModel().getColumn(9).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -367,7 +387,7 @@ public class FrmProveedor extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +437,7 @@ public class FrmProveedor extends javax.swing.JFrame {
                                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -427,14 +447,14 @@ public class FrmProveedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -473,7 +493,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         double saldo = Double.parseDouble(txtSaldo.getText());
 
         Cuenta cuenta = new Cuenta (seleccionTipoCuenta, txtClabe.getText(), seleccionBanco, seleccionStatusCue, saldo);
-        Proveedor proveedor = new Proveedor(txtNombre.getText(), txtCorreo.getText(), txtCorreo.getText(), seleccionTipoPro, 
+        Proveedor proveedor = new Proveedor(txtNombre.getText(), txtCorreo.getText(), txtDireccion.getText(), seleccionTipoPro, 
                 obtenerHorario(), txtWeb.getText(), txtContacto.getText(), telefono, cuenta);
 
         dao.modificarProveedor(id, proveedor);
@@ -497,7 +517,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         double saldo = Double.parseDouble(txtSaldo.getText());
 
         Cuenta cuenta = new Cuenta (seleccionTipoCuenta, txtClabe.getText(), seleccionBanco, seleccionStatusCue, saldo);
-        Proveedor proveedor = new Proveedor(txtNombre.getText(), txtCorreo.getText(), txtCorreo.getText(), seleccionTipoPro, 
+        Proveedor proveedor = new Proveedor(txtNombre.getText(), txtCorreo.getText(), txtDireccion.getText(), seleccionTipoPro, 
                 obtenerHorario(), txtWeb.getText(), txtContacto.getText(), telefono, cuenta);
 
         dao.insertProveedor(proveedor);

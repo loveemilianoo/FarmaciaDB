@@ -31,7 +31,8 @@ public class ProveedorDaoImp implements ProveedorDAO {
                 idCuenta = rs.getInt(1);
             }
             //Insertar en Proveedores
-            String qInsertaProv = "INSERT INTO proveedores (nombre, telefono, direccion, correo, tipo, horario, sitio_web, persona_contacto, id_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String qInsertaProv = "INSERT INTO proveedores (nombre, telefono, direccion, correo, tipo, horario, sitio_web, persona_contacto, id_cuenta) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(qInsertaProv);
             ps.setString(1, proveedor.getNombre());
             ps.setInt(2, proveedor.getTelefono());
@@ -65,8 +66,8 @@ public class ProveedorDaoImp implements ProveedorDAO {
         try {
             conn = Conexion.obtenerConexion();
             
-            String query = "SELECT pr.id_proveedor, pr.nombre, pr.direccion, pr.telefono, pr.correo, pr.tipo, pr.horario, "
-                    + "pr.sitio_web, pr.persona_contacto, c.tipo_cuenta, c.clabe, c.banco, c.estatus, c.saldo "
+            String query = "SELECT pr.id_proveedor, pr.nombre, pr.correo, pr.direccion, pr.telefono,  pr.persona_contacto, pr.sitio_web, pr.horario, pr.tipo,  "
+                    + " c.clabe, c.tipo_cuenta,  c.banco, c.estatus, c.saldo "
                     + "FROM proveedores pr "
                     + "LEFT JOIN cuentas c ON pr.id_cuenta = c.id_cuenta";
             ps = conn.prepareStatement(query);

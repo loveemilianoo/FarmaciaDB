@@ -66,6 +66,22 @@ public class FrmProducto extends javax.swing.JFrame {
         return 0; // Si no encontró, retorna 0
     }
     
+    public String obtenerNombreProveedor() {
+        String proveedoresStr = dao.obtenerProveedores();
+        String nombreSeleccionado = (String) comboProveedor.getSelectedItem();
+        
+        if (proveedoresStr != null && !proveedoresStr.isEmpty() && nombreSeleccionado != null) {
+            String[] proveedoresArray = proveedoresStr.split(",");
+            for (String proveedor : proveedoresArray) {
+                String[] partes = proveedor.split(":");
+                if (partes.length == 2 && partes[1].equals(nombreSeleccionado)) {
+                    return partes[1]; // Retornar el ID
+                }
+            }
+        }
+        return null; // Si no encontró, retorna 0
+    }
+    
     public void limpiarCampos(){
         txtComercial.setText("");
         txtGenerico.setText("");
@@ -394,11 +410,12 @@ public class FrmProducto extends javax.swing.JFrame {
         String selePresentacion = (String) comboPresentacion.getSelectedItem();
         String seleTipo = (String) comboTipo.getSelectedItem();
         int idProveedor = obtenerIdProveedorSeleccionado();
+        String nombreProveedor = obtenerNombreProveedor();
 
         double precio = Double.parseDouble(txtPrecio.getText());
         
         Producto producto = new Producto(txtComercial.getText(), txtGenerico.getText(), selePresentacion, txtFormula.getText(),
-            seleTipo, control, precio, (int) spStock.getValue(), idProveedor);
+            seleTipo, control, nombreProveedor, precio, (int) spStock.getValue(), idProveedor);
 
         dao.insertProducto(producto);
         limpiarCampos();
@@ -429,11 +446,12 @@ public class FrmProducto extends javax.swing.JFrame {
         String selePresentacion = (String) comboPresentacion.getSelectedItem();
         String seleTipo = (String) comboTipo.getSelectedItem();
         int idProveedor = obtenerIdProveedorSeleccionado();
+        String nombreProveedor = obtenerNombreProveedor();
 
         double precio = Double.parseDouble(txtPrecio.getText());
         
         Producto producto = new Producto(txtComercial.getText(), txtGenerico.getText(), selePresentacion, txtFormula.getText(),
-            seleTipo, control, precio, (int) spStock.getValue(), idProveedor);
+            seleTipo, control, nombreProveedor, precio, (int) spStock.getValue(), idProveedor);
 
         dao.modificarProducto(id, producto);
         limpiarCampos();
@@ -462,7 +480,7 @@ public class FrmProducto extends javax.swing.JFrame {
         comboTipo.setSelectedItem(producto.getTipo());
         spStock.setValue(producto.getStock());
         
-        comboProveedor.setSelectedItem(producto.getId_proveedor());
+        comboProveedor.setSelectedItem(producto.getProveedor());
         
         if ("Con receta".equals(producto.getControl())){
             rbtnReceta.setSelected(true);

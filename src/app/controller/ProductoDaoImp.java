@@ -108,7 +108,8 @@ public class ProductoDaoImp implements ProductoDAO {
                         rs.getString("tipo"), 
                         rs.getString("control"), 
                         rs.getDouble("precio"), 
-                        rs.getInt("stock"));
+                        rs.getInt("stock"), 
+                        rs.getInt("id_proveedor"));
             }
         } catch (SQLException e){
             System.out.println("Error en la base de datos: "+e.toString());

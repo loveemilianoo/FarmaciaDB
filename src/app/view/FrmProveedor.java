@@ -1,10 +1,13 @@
 package app.view;
 
+import app.controller.ProveedorDaoImp;
 import app.entity.*;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmProveedor extends javax.swing.JFrame {
     
+    ProveedorDaoImp dao = new ProveedorDaoImp();
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmProveedor.class.getName());
 
     public FrmProveedor() {
@@ -34,6 +37,12 @@ public class FrmProveedor extends javax.swing.JFrame {
         txtWeb.setText("");
         txtSaldo.setText("");
         txtClabe.setText("");
+    }
+    
+    public String obtenerHorario(){
+        int horaInicio = (Integer) spPrimero.getValue();
+        int horaFin = (Integer) spSegundo.getValue();
+        return String.format("%02d:00 - %02d:00", horaInicio, horaFin);
     }
     
     @SuppressWarnings("unchecked")
@@ -440,7 +449,7 @@ public class FrmProveedor extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int id = Integer.parseInt(txtIdPro.getText());
 
-        dao.eliminarCliente(id);
+        dao.eliminarProveedor(id);
         limpiarCampos();
         tabla();
 
@@ -453,22 +462,15 @@ public class FrmProveedor extends javax.swing.JFrame {
         String seleccionBanco = (String) comboBoxBanco.getSelectedItem();
         String seleccionStatusCue = (String) comboBoxEstatusCuenta.getSelectedItem();
 
-        // Metodo para unir los Spinner's
-        
-        
-        
-        //
-        
-        
         int id = Integer.parseInt(txtIdPro.getText());
         int telefono = Integer.parseInt(txtTelefono.getText());
         double saldo = Double.parseDouble(txtSaldo.getText());
 
         Cuenta cuenta = new Cuenta (seleccionTipoCuenta, txtClabe.getText(), seleccionBanco, seleccionStatusCue, saldo);
         Proveedor proveedor = new Proveedor(txtNombre.getText(), txtCorreo.getText(), txtCorreo.getText(), seleccionTipoPro, 
-                "Horario", txtWeb.getText(), txtContacto.getText(), telefono, cuenta);
+                obtenerHorario(), txtWeb.getText(), txtContacto.getText(), telefono, cuenta);
 
-        dao.modificarCliente(id, proveedor);
+        dao.modificarProveedor(id, proveedor);
         limpiarCampos();
         tabla();
 
@@ -490,9 +492,9 @@ public class FrmProveedor extends javax.swing.JFrame {
 
         Cuenta cuenta = new Cuenta (seleccionTipoCuenta, txtClabe.getText(), seleccionBanco, seleccionStatusCue, saldo);
         Proveedor proveedor = new Proveedor(txtNombre.getText(), txtCorreo.getText(), txtCorreo.getText(), seleccionTipoPro, 
-                "Horario", txtWeb.getText(), txtContacto.getText(), telefono, cuenta);
+                obtenerHorario(), txtWeb.getText(), txtContacto.getText(), telefono, cuenta);
 
-        dao.insertarCliente(proveedor);
+        dao.insertProveedor(proveedor);
         limpiarCampos();
         tabla();
 

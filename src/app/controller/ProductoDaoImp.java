@@ -90,8 +90,8 @@ public class ProductoDaoImp implements ProductoDAO {
         try {
             conn = Conexion.obtenerConexion();
             String query = "SELECT p.nombre_comercial, p.nombre_generico, p.formula, p.presentacion, p.control, p.tipo, "
-                    + "p.precio, p.stock, p.id_proveedor "
-                    + "FROM productos p "
+                    + "p.precio, p.stock, p.id_proveedor, pr.nombre AS proveedor "
+                    + "FROM productos p LEFT JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor "
                     + "WHERE p.id_producto = ?";
             
             ps = conn.prepareStatement(query);
@@ -107,6 +107,7 @@ public class ProductoDaoImp implements ProductoDAO {
                         rs.getString("formula"), 
                         rs.getString("tipo"), 
                         rs.getString("control"), 
+                        rs.getString("proveedor"),
                         rs.getDouble("precio"), 
                         rs.getInt("stock"), 
                         rs.getInt("id_proveedor"));

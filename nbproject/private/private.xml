@@ -5,7 +5,9 @@
         <group>
             <file>file:/root/Documentos/Bases_Linux/Farmaciadb/src/app/view/frmMain.java</file>
             <file>file:/root/Documentos/Bases_Linux/Farmaciadb/src/app/view/FrmUsuario.java</file>
-            <file>file:/root/Documentos/Bases_Linux/Farmaciadb/src/app/view/FrmEmpleados.java</file>
+            <file>file:/root/Documentos/Bases_Linux/Farmaciadb/src/app/view/FrmProducto.java</file>
+            <file>file:/root/Documentos/Bases_Linux/Farmaciadb/src/app/view/FrmProveedor.java</file>
+            <file>file:/root/Documentos/Bases_Linux/Farmaciadb/src/app/controller/ProductoDaoImp.java</file>
         </group>
     </open-files>
 </project-private>

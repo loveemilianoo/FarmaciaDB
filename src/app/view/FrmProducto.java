@@ -1,12 +1,13 @@
 package app.view;
 
 import app.entity.*;
+import app.controller.*;
 import javax.swing.ButtonGroup;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmProducto extends javax.swing.JFrame {
     
-    
+    private ProductoDaoImp dao = new ProductoDaoImp();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmProducto.class.getName());
 
@@ -16,6 +17,7 @@ public class FrmProducto extends javax.swing.JFrame {
         buttonGroup1.add(rbtnReceta);
         
         tabla();
+        cargarProveedores();
     }
     
     public void tabla(){
@@ -29,6 +31,38 @@ public class FrmProducto extends javax.swing.JFrame {
         }
         
         dao.construirTabla(tabla);
+    }
+    
+    public void cargarProveedores() {
+        String proveedoresStr = dao.obtenerProveedores();
+        comboProveedor.removeAllItems();
+        
+        if (proveedoresStr != null && !proveedoresStr.isEmpty()) {
+            String[] proveedoresArray = proveedoresStr.split(",");
+            for (String proveedor : proveedoresArray) {
+                // Formato: "id:nombre"
+                String[] partes = proveedor.split(":");
+                if (partes.length == 2) {
+                    comboProveedor.addItem(partes[1]); // Mostrar solo el nombre
+                }
+            }
+        }
+    }
+    
+    public int obtenerIdProveedorSeleccionado() {
+        String proveedoresStr = dao.obtenerProveedores();
+        String nombreSeleccionado = (String) comboProveedor.getSelectedItem();
+        
+        if (proveedoresStr != null && !proveedoresStr.isEmpty() && nombreSeleccionado != null) {
+            String[] proveedoresArray = proveedoresStr.split(",");
+            for (String proveedor : proveedoresArray) {
+                String[] partes = proveedor.split(":");
+                if (partes.length == 2 && partes[1].equals(nombreSeleccionado)) {
+                    return Integer.parseInt(partes[0]); // Retornar el ID
+                }
+            }
+        }
+        return 0; // Si no encontró, retorna 0
     }
     
     public void limpiarCampos(){
@@ -351,14 +385,14 @@ public class FrmProducto extends javax.swing.JFrame {
         
         String selePresentacion = (String) comboPresentacion.getSelectedItem();
         String seleTipo = (String) comboTipo.getSelectedItem();
-        String seleProovedor = (String) comboProveedor.getSelectedItem();
+        int idProveedor = obtenerIdProveedorSeleccionado();
 
         double precio = Double.parseDouble(txtPrecio.getText());
         
         Producto producto = new Producto(txtComercial.getText(), txtGenerico.getText(), selePresentacion, txtFormula.getText(),
-            seleTipo, control, precio, (int) spStock.getValue(), seleProovedor);
+            seleTipo, control, precio, (int) spStock.getValue(), idProveedor);
 
-        dao.insertProveedor(producto);
+        dao.insertProducto(producto);
         limpiarCampos();
         tabla();
 
@@ -368,7 +402,7 @@ public class FrmProducto extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int id = Integer.parseInt(txtIdProductos.getText());
 
-        dao.eliminarProveedor(id);
+        dao.eliminarProducto(id);
         limpiarCampos();
         tabla();
 
@@ -386,14 +420,14 @@ public class FrmProducto extends javax.swing.JFrame {
         int id = Integer.parseInt(txtIdProductos.getText());
         String selePresentacion = (String) comboPresentacion.getSelectedItem();
         String seleTipo = (String) comboTipo.getSelectedItem();
-        String seleProovedor = (String) comboProveedor.getSelectedItem();
+        int idProveedor = obtenerIdProveedorSeleccionado();
 
         double precio = Double.parseDouble(txtPrecio.getText());
         
         Producto producto = new Producto(txtComercial.getText(), txtGenerico.getText(), selePresentacion, txtFormula.getText(),
-            seleTipo, control, precio, (int) spStock.getValue(), seleProovedor);
+            seleTipo, control, precio, (int) spStock.getValue(), idProveedor);
 
-        dao.modificarProveedor(id, producto);
+        dao.modificarProducto(id, producto);
         limpiarCampos();
         tabla();
 

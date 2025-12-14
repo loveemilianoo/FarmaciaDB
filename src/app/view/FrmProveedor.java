@@ -520,12 +520,24 @@ public class FrmProveedor extends javax.swing.JFrame {
         txtClabe.setText(proveedor.getCuenta().getClabe());
         txtDireccion.setText(proveedor.getDireccion());
         txtTelefono.setText(String.valueOf(proveedor.getTelefono()));
+        txtWeb.setText(proveedor.getSitoWeb());
+        txtContacto.setText(proveedor.getPersonaContacto());
         comboTipoPro.setSelectedItem(proveedor.getTipo());
         comboBoxTipoCuenta.setSelectedItem(proveedor.getCuenta().getTipo());
         comboBoxBanco.setSelectedItem(proveedor.getCuenta().getBanco());
         comboBoxEstatusCuenta.setSelectedItem(proveedor.getCuenta().getEstatus());
         
-        obtenerHorario();
+        // Parsear horario en formato "HH:00 - HH:00"
+        String horario = proveedor.getHorario();
+        if (horario != null && !horario.isEmpty()) {
+            String[] partes = horario.split(" - ");
+            if (partes.length == 2) {
+                int horaInicio = Integer.parseInt(partes[0].split(":")[0]);
+                int horaFin = Integer.parseInt(partes[1].split(":")[0]);
+                spPrimero.setValue(horaInicio);
+                spSegundo.setValue(horaFin);
+            }
+        }
     }//GEN-LAST:event_tablaProMouseClicked
 
     /**

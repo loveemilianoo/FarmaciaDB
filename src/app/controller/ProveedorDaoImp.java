@@ -168,14 +168,22 @@ public class ProveedorDaoImp implements ProveedorDAO {
                 idCuenta = rs.getInt("id_cuenta");
             }
 
+            // 1. Eliminar productos asociados al proveedor
+            String qElimProductos = "DELETE FROM productos WHERE id_proveedor = ?";
+            ps = conn.prepareStatement(qElimProductos);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+            // 2. Eliminar proveedor
             String qElimProveedor = "DELETE FROM proveedores WHERE id_proveedor = ?";
             ps = conn.prepareStatement(qElimProveedor);
-            ps.setString(1, String.valueOf(id));
+            ps.setInt(1, id);
             ps.executeUpdate();
            
+            // 3. Eliminar cuenta asociada
             String qElimCuenta = "DELETE FROM cuentas WHERE id_cuenta = ?";
             ps = conn.prepareStatement(qElimCuenta);    
-            ps.setString(1, String.valueOf(idCuenta));
+            ps.setInt(1, idCuenta);
             ps.executeUpdate();
         } catch (SQLException e){
             System.out.println("Error en la base de datos: "+e.toString());

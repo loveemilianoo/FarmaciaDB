@@ -91,7 +91,7 @@ public class UsuarioDaoImp implements UsuarioDAO {
         Connection conn = Conexion.obtenerConexion();
         
         try{
-            String query = "SELECT u.id_usuario, nombre, edad, sexo, telefono, direccion "
+            String query = "SELECT u.id_usuario, nombre, edad,telefono , direccion , login , password, sexo "
                     + "FROM personas p, usuarios u WHERE p.id_persona = u.id_persona";
             
             ps = conn.prepareStatement(query);

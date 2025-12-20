@@ -17,6 +17,15 @@ public class FrmCliente extends javax.swing.JFrame {
         buttonGroup1.add(rbtnFem);
         buttonGroup1.add(rbtnMasc);
         
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent){
+                frmMain principal = new frmMain();
+                principal.setVisible(true);
+                dispose();
+            }
+        });
+        
+        
         tabla();
     }
     
@@ -90,7 +99,7 @@ public class FrmCliente extends javax.swing.JFrame {
 
         popupMenu1.setLabel("popupMenu1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Clientes"));
 
@@ -443,6 +452,7 @@ public class FrmCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void rbtnFemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnFemActionPerformed

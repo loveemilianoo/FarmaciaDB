@@ -43,7 +43,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 0, 17)); // NOI18N
-        jLabel1.setText("¡Bienvenido! Por favor inicia sesión");
+        jLabel1.setText("¡Bienvenido! Por favor inicia sesión.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,6 +106,7 @@ public class FrmLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed

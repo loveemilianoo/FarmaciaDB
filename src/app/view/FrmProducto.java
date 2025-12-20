@@ -17,6 +17,14 @@ public class FrmProducto extends javax.swing.JFrame {
         buttonGroup1.add(rbtnPublico);
         buttonGroup1.add(rbtnReceta);
         
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent){
+                frmMain principal = new frmMain();
+                principal.setVisible(true);
+                dispose();
+            }
+        });
+        
         tabla();
         cargarProveedores();
     }
@@ -123,7 +131,7 @@ public class FrmProducto extends javax.swing.JFrame {
         tablaProductos = new javax.swing.JTable();
         txtIdProductos = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Productos"));
 
@@ -410,6 +418,7 @@ public class FrmProducto extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFormulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFormulaActionPerformed
